@@ -53,3 +53,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Advent of Code
+
+data/day*.txt
+src/*.out
