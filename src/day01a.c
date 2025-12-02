@@ -24,13 +24,14 @@ int main(void)
         if (isspace(*buffer))
         {
             continue;
-        }     
+        }
 
-        int direction = buffer[0] == 'L' ? -1 : 1;
+        char direction = buffer[0];
         int distance = atoi(buffer + 1);
-
-        dial = mod(dial + direction * distance, 100);
-
+        
+        distance = direction == 'L' ? -distance : distance;
+        dial = mod(dial + distance, 100);
+        
         if (dial == 0)
         {
             count++;

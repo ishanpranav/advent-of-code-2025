@@ -1,4 +1,4 @@
-// day01a.c
+// day01b.c
 // Copyright (c) 2025 Ishan Pranav
 // Licensed under the MIT license.
 
@@ -26,9 +26,10 @@ int main(void)
             continue;
         }     
 
+        char direction = buffer[0];
         int distance = atoi(buffer + 1);
         
-        distance = buffer[0] == 'L' ? -distance : distance;
+        distance = direction == 'L' ? -distance : distance;
         
         int nextDial = dial + distance;
 
