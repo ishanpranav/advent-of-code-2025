@@ -5,6 +5,7 @@
 // Secret Entrance
 
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,7 +17,8 @@ static unsigned int mod(int dividend, int divisor)
 int main(void)
 {
     char buffer[8];
-    unsigned int dial = 50;
+    int dial = 50;
+    bool isZero = false;
     unsigned int count = 0;
 
     while (fgets(buffer, sizeof buffer, stdin))
@@ -26,15 +28,26 @@ int main(void)
             continue;
         }     
 
-        int direction = buffer[0] == 'L' ? -1 : 1;
-        int distance = atoi(buffer + 1);
+        isZero = dial == 0;
 
-        dial = mod(dial + direction * distance, 100);
+        int distance = atoi(buffer + 1);
+        
+        distance = buffer[0] == 'L' ? -distance : distance;
+        dial += distance;
+
+        if (dial < 0 && !isZero)
+        {
+            count++;
+        }
+
+        count += abs(dial) / 100;
 
         if (dial == 0)
         {
             count++;
         }
+        
+        dial = mod(dial, 100);
     }
 
     printf("%u\n", count);
