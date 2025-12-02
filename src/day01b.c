@@ -17,8 +17,7 @@ static unsigned int mod(int dividend, int divisor)
 int main(void)
 {
     char buffer[8];
-    int dial = 50;
-    bool isZero = false;
+    unsigned int dial = 50;
     unsigned int count = 0;
 
     while (fgets(buffer, sizeof buffer, stdin))
@@ -28,26 +27,25 @@ int main(void)
             continue;
         }     
 
-        isZero = dial == 0;
-
         int distance = atoi(buffer + 1);
         
         distance = buffer[0] == 'L' ? -distance : distance;
-        dial += distance;
+        
+        int nextDial = dial + distance;
 
-        if (dial < 0 && !isZero)
+        if (dial != 0 && nextDial < 0)
         {
             count++;
         }
 
-        count += abs(dial) / 100;
+        count += abs(nextDial) / 100;
 
-        if (dial == 0)
+        if (nextDial == 0)
         {
             count++;
         }
         
-        dial = mod(dial, 100);
+        dial = mod(nextDial, 100);
     }
 
     printf("%u\n", count);
