@@ -87,3 +87,24 @@ foreach (left, right) in input:
 
 return result
 ```
+
+### Day 3: Lobby
+
+```
+given input
+let result := 0
+
+foreach (a_1, ..., a_n) in input:
+    let first := a_1
+    let second := a_2
+
+    for i in (3, ..., n - 1):
+        if a_i > first then:
+            first := a_i
+            second := a_[i + 1]
+            continue
+        
+        if a_i > second then second := a_i
+
+    result := (first * 10) + second
+```
