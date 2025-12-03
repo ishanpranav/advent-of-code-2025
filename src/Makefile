@@ -11,6 +11,9 @@ all: \
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@.out
 
+day02a: day02a.c
+	$(CC) $(CFLAGS) -lm $< -o $@.out
+
 clean:
 	rm -f *.out
 	
