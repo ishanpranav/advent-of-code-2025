@@ -121,22 +121,19 @@ return result
 
 ```
 foreach (a_1, ..., a_n) in input:
-    let (b_1, ..., b_12) := (a_1, ..., b_12)
+    let S be a stack
 
-    for i in (2, ..., n):
-        for k in (1, ..., 12):
-            if a_i > b_k then:
-                b_k := a_i
-                b_[k + 1] := a_[i + 1] for all k 
-
-        if a_i > first then:
-            first := a_i
-            second := a_[i + 1]
-            continue
+    foreach ai in (a_1, ..., a_n):
+        while S is not empty
+            and top of S < ai
+            and (n - i - 1 + count of S) > 12:
+            pop S
         
-        if a_i > second then second := a_i
+        if count of S < k: push ai onto S
 
-    result := result + (first * 10) + second
+    value := 0
+
+    while S is not empty: value := (value * 10) + [pop S]
 
 return result
 ```
