@@ -1,4 +1,4 @@
-// day02a.c
+// day02b.c
 // Copyright (c) 2025 Ishan Pranav
 // Licensed under the MIT license.
 
@@ -42,19 +42,32 @@ int main(void)
 
     while (scanf("%llu-%llu%*[,]", &left, &right) == 2)
     {
-        unsigned int minK = ceil_div(log10(left) + 1, 2);
-        unsigned int maxK = (log10(right) + 1) / 2;
-        unsigned long long a = pow(10, minK);
+        unsigned int maxK = log10(right) + 1;
 
-        for (unsigned int k = minK; k <= maxK; k++)
+        printf("%llu-%llu:", left, right);
+
+        for (unsigned int k = 1; k <= maxK; k++)
         {
-            unsigned long long mask = a + 1;
-            unsigned long long minX = max(mask / 10, ceil_div(left, mask));
-            unsigned long long maxX = min(mask - 2, right / mask);
+            unsigned int maxR = maxK / k;
 
-            result += ((minX + maxX) * (maxX - minX + 1) / 2) * mask;
-            a *= 10;
+            for (unsigned int r = 2; r <= maxR; r++)
+            {
+                unsigned long long mask = (pow(10, k * r) - 1) / (pow(10, k) - 1);
+                unsigned long long minX = max(pow(10, k - 1), ceil_div(left, mask));
+                unsigned long long maxX = min(pow(10, k) - 1, right / mask);
+
+                if (minX > maxX) {
+                    continue;
+                }
+                result += ((minX + maxX) * (maxX - minX + 1) / 2) * mask;
+
+                for (unsigned long long x = minX; x <= maxX; x++) {
+                    printf(" %llu", x * mask);
+                }
+            }
         }
+
+        printf("\n");
     }
 
     printf("%llu\n", result);

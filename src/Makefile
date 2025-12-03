@@ -3,7 +3,7 @@
 # Licensed under the MIT license.
 
 CC = clang
-CFLAGS = -gdwarf-4 -O3 -pedantic -std=c99 -Wall -Wextra
+CFLAGS = -fsanitize=undefined -gdwarf-4 -O3 -pedantic -std=c99 -Wall -Wextra
 
 all: \
 	day01a day01b
@@ -12,6 +12,9 @@ all: \
 	$(CC) $(CFLAGS) $< -o $@.out
 
 day02a: day02a.c
+	$(CC) $(CFLAGS) -lm $< -o $@.out
+
+day02b: day02b.c
 	$(CC) $(CFLAGS) -lm $< -o $@.out
 
 clean:
