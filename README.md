@@ -125,8 +125,8 @@ foreach (a_1, ..., a_n) in input:
 
     foreach ai in (a_1, ..., a_n):
         while S is not empty
-            and top of S < ai
-            and (n - i - 1 + count of S) > 12:
+            and [peek S] < ai
+            and (n - i + count of S) ≥ 12:
             pop S
         
         if count of S < k: push ai onto S

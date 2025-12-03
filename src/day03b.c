@@ -6,35 +6,52 @@
 
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct
+{
+    unsigned int count;
+    char items[12];
+} Stack;
 
 int main(void)
 {
     char a[256];
-    unsigned int result = 0;
+    unsigned long long result = 0;
 
     while (fgets(a, sizeof a, stdin))
     {
-        const char* p;
+        Stack s;
 
-        for (p = &a[1]; *(p + 1) && !isspace(*(p + 1)); p++)
+        s.count = 0;
+
+        unsigned int n = strlen(a);
+
+        while (isspace(a[n - 1])) { n--; }
+
+        for (unsigned int i = 0; i < n; i++)
         {
-            if (*p > a[0])
+            while (s.count
+                && s.items[s.count - 1] < a[i]
+                && (n - i + s.count - 1) >= 12)
             {
-                a[0] = *p;
-                a[1] = *(p + 1);
-
-                continue;
+                s.count--;
             }
 
-            if (*p > a[1]) { a[1] = *p; }
+            if (s.count < 12)
+            {
+                s.items[s.count] = a[i];
+                s.count++;
+            }
         }
 
-        if (*p > a[1]) { a[1] = *p; }
+        s.items[s.count] = '\0';
 
-        result += (a[0] - '0') * 10 + (a[1] - '0');
+        result += strtoull(s.items, NULL, 10);
     }
 
-    printf("%u\n", result);
+    printf("%llu\n", result);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
