@@ -1,4 +1,4 @@
-// day03a.c
+// day03b.c
 // Copyright (c) 2025 Ishan Pranav and Iris Lim
 // Licensed under the MIT license.
 

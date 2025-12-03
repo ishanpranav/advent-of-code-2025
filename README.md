@@ -93,7 +93,11 @@ return result
 ```
 given input
 let result := 0
+```
 
+### Part A
+
+```
 foreach (a_1, ..., a_n) in input:
     let first := a_1
     let second := a_2
@@ -107,6 +111,30 @@ foreach (a_1, ..., a_n) in input:
         if a_i > second then second := a_i
     
     if a_n > second then second := a_n
+
+    result := result + (first * 10) + second
+
+return result
+```
+
+### Part B
+
+```
+foreach (a_1, ..., a_n) in input:
+    let (b_1, ..., b_12) := (a_1, ..., b_12)
+
+    for i in (2, ..., n):
+        for k in (1, ..., 12):
+            if a_i > b_k then:
+                b_k := a_i
+                b_[k + 1] := a_[i + 1] for all k 
+
+        if a_i > first then:
+            first := a_i
+            second := a_[i + 1]
+            continue
+        
+        if a_i > second then second := a_i
 
     result := result + (first * 10) + second
 
