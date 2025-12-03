@@ -106,5 +106,7 @@ foreach (a_1, ..., a_n) in input:
         
         if a_i > second then second := a_i
 
-    result := (first * 10) + second
+    result := result + (first * 10) + second
+
+return result
 ```
