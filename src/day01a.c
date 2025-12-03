@@ -21,10 +21,7 @@ int main(void)
 
     while (fgets(buffer, sizeof buffer, stdin))
     {
-        if (isspace(*buffer))
-        {
-            continue;
-        }
+        if (isspace(*buffer)) { continue; }
 
         char direction = buffer[0];
         int distance = atoi(buffer + 1);

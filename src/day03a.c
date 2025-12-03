@@ -25,16 +25,10 @@ int main(void)
                 continue;
             }
 
-            if (*p > a[1])
-            {
-                a[1] = *p;
-            }
+            if (*p > a[1]) { a[1] = *p; }
         }
 
-        if (*p > a[1])
-        {
-            a[1] = *p;
-        }
+        if (*p > a[1]) { a[1] = *p; }
 
         result += (a[0] - '0') * 10 + (a[1] - '0');
     }

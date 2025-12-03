@@ -60,10 +60,7 @@ int main(void)
 
                 b *= a;
 
-                if (minX > maxX)
-                {
-                    continue;
-                }
+                if (minX > maxX) { continue; }
                 
                 result += ((minX + maxX) * (maxX - minX + 1) / 2) * mask;
 
