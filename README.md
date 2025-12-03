@@ -98,13 +98,15 @@ foreach (a_1, ..., a_n) in input:
     let first := a_1
     let second := a_2
 
-    for i in (3, ..., n - 1):
+    for i in (2, ..., n - 1):
         if a_i > first then:
             first := a_i
             second := a_[i + 1]
             continue
         
         if a_i > second then second := a_i
+    
+    if a_n > second then second := a_n
 
     result := result + (first * 10) + second
 
