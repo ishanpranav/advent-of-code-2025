@@ -28,57 +28,36 @@ static unsigned long long max(unsigned long long left, unsigned long long right)
     return right;
 }
 
+static unsigned long long ceil_div(
+    unsigned long long dividend,
+    unsigned long long divisor)
+{
+    return (dividend + divisor - 1) / divisor;
+}
+
 int main(void)
 {
-    unsigned long long iMin, iMax;
-    unsigned long long sum = 0;
+    unsigned long long minI, maxI;
+    unsigned long long result = 0;
 
-    while (scanf("%llu-%llu%*[,]", &iMin, &iMax) == 2)
+    while (scanf("%llu-%llu%*[,]", &minI, &maxI) == 2)
     {
-        unsigned int nMin = log10(iMin) + 1;
-        unsigned int kMin = (nMin + (nMin % 2)) / 2;
-        unsigned int nMax = log10(iMax) + 1;
-        unsigned int kMax = (nMax - (nMax % 2)) / 2;
+        unsigned int minK = ceil_div(log10(minI) + 1, 2);
+        unsigned int maxK = (log10(maxI) + 1) / 2;
 
-        printf("%llu-%llu [%u-%u]: ", iMin, iMax, kMin, kMax);
-        
-        for (unsigned int k = kMin; k <= kMax; k++)
+        for (unsigned int k = minK; k <= maxK; k++)
         {
-            unsigned long long xMin = pow(10, k - 1);
-            
-            xMin = max(xMin, iMin / pow(10, nMin - k));
+            unsigned long long m = pow(10, k);
+            unsigned long long minX =
+                max(m / 10, ceil_div(minI, m + 1));
+            unsigned long long maxX =
+                min(m - 1, maxI / (m + 1));
 
-            unsigned long long xMax = pow(10, k) - 1;
-
-            xMax = min(xMax, iMax / pow(10, nMax - k));
-            
-            if (xMin > xMax) {
-                unsigned long long swap = xMin;
-                xMin = xMax;
-                xMax = swap;
-                
-            }
-            if (kMin == 1 && kMax == 1) {
-                printf("xMin = %llu xMax = %llu\n", xMin, xMax);
-            }
-
-            for (unsigned long long x = xMin; x <= xMax; x++)
-            {
-                unsigned long long pattern = x * pow(10, k) + x;
-                
-                if (pattern >= iMin && pattern <= iMax)
-                {
-                    printf("%llu ", pattern);
-
-                    sum += pattern;
-                }
-            }
+            result += ((minX + maxX) * (maxX - minX + 1) / 2) * (m + 1);
         }
-
-        printf("\n");
     }
 
-    printf("answer: %llu", sum);
+    printf("%llu\n", result);
 
     return 0;
 }
