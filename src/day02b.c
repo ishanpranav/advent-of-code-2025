@@ -43,28 +43,36 @@ int main(void)
     while (scanf("%llu-%llu%*[,]", &left, &right) == 2)
     {
         unsigned int maxK = log10(right) + 1;
+        unsigned long long a = 10;
 
         printf("%llu-%llu:", left, right);
 
         for (unsigned int k = 1; k <= maxK; k++)
         {
             unsigned int maxR = maxK / k;
+            unsigned long long b = a * a;
 
             for (unsigned int r = 2; r <= maxR; r++)
             {
-                unsigned long long mask = (pow(10, k * r) - 1) / (pow(10, k) - 1);
-                unsigned long long minX = max(pow(10, k - 1), ceil_div(left, mask));
-                unsigned long long maxX = min(pow(10, k) - 1, right / mask);
+                unsigned long long mask = (b - 1) / (a - 1);
+                unsigned long long minX = max(a / 10, ceil_div(left, mask));
+                unsigned long long maxX = min(a - 1, right / mask);
 
-                if (minX > maxX) {
+                b *= a;
+
+                if (minX > maxX)
+                {
                     continue;
                 }
+                
                 result += ((minX + maxX) * (maxX - minX + 1) / 2) * mask;
 
                 for (unsigned long long x = minX; x <= maxX; x++) {
                     printf(" %llu", x * mask);
                 }
             }
+
+            a *= 10;
         }
 
         printf("\n");
