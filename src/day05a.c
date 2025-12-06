@@ -81,10 +81,6 @@ int main(void)
 
     n = j + 1;
 
-    for (unsigned int i = 0; i < n; i++) {
-        printf("%llu-%llu\n", intervals[i].left, intervals[i].right);
-    }
-
     unsigned int count = 0;
 
     for (unsigned int i = 0; i < m; i++)
@@ -96,8 +92,6 @@ int main(void)
             sizeof * intervals, 
             interval_ullong_compare))
         {
-            printf("%llu\n", values[i]);
-
             count++;
         }
     }
