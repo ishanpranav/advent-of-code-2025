@@ -8,7 +8,7 @@ Efficient Advent of Code 2025 solutions in C language
 given input
 
 let dial := 50
-let count := 0
+let result := 0
 ```
 
 ### Part A
@@ -19,9 +19,9 @@ foreach (direction, distance) in input:
 
     dial := (dial + distance) mod 100
 
-    if dial = 0 then increment count
+    if dial = 0 then increment result
 
-return count
+return result
 ```
 
 ### Part B
@@ -32,15 +32,15 @@ foreach (direction, distance) in input:
 
     let nextDial := dial + distance
 
-    if dial ≠ 0 and nextDial < 0 then increment count
+    if dial ≠ 0 and nextDial < 0 then increment result
 
-    count := count + ⌊|dial| / 100⌋
+    result := result + ⌊|dial| / 100⌋
 
-    if nextDial = 0 then increment count
+    if nextDial = 0 then increment result
 
     dial := nextDial mod 100
 
-return count
+return result
 ```
 
 ## Day 2: Gift Shop
@@ -88,7 +88,7 @@ foreach (left, right) in input:
 return result
 ```
 
-### Day 3: Lobby
+## Day 3: Lobby
 
 ```
 given input
@@ -126,7 +126,7 @@ foreach (a_1, ..., a_n) in input:
     foreach ai in (a_1, ..., a_n):
         while S is not empty
             and [peek S] < ai
-            and (n - i + count of S) ≥ 12:
+            and (n - i + count of S) > 12:
             pop S
         
         if count of S < k: push ai onto S
@@ -134,6 +134,52 @@ foreach (a_1, ..., a_n) in input:
     value := 0
 
     while S is not empty: value := (value * 10) + [pop S]
+
+return result
+```
+
+### Day 4: Printing Department
+
+```
+given (
+    a_[1,1], ..., a_[1,m],
+    ...,
+    a_[n,1], ..., a_[n,m]
+)
+```
+
+### Part A
+
+```
+let B be an ((n + 2) × (m + 2)) matrix
+
+b[1,1], ..., b_[1,m + 2] := 0
+
+foreach i in (1, ..., n):
+    b[i + 1,1] := 0
+    b[i + 1,2], ..., b[i + 1,m + 1] := a[i,1], ..., a[i,m]
+    b[i + 1,m + 2] := 0
+
+b[n + 2,1], ..., b_[n + 2,m+2] := 0
+
+let result := 0
+
+foreach i in (2, ..., n + 1):
+    foreach j in (2, ..., m + 1):
+        if not a[i,j] then continue
+        
+        let statements := (
+            a[i - 1,j - 1],
+            a[i - 1,j],
+            a[i - 1,j + 1],
+            a[i,j - 1],
+            a[i,j + 1],
+            a[i + 1,j - 1],
+            a[i + 1,j]
+            a[i + 1,j + 1],
+        )
+        
+        if [count of statements s where s] < 4 then increment result
 
 return result
 ```

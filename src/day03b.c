@@ -34,7 +34,7 @@ int main(void)
         {
             while (s.count
                 && s.items[s.count - 1] < a[i]
-                && (n - i + s.count - 1) >= 12)
+                && (n - i + s.count) > 12)
             {
                 s.count--;
             }

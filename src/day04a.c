@@ -2,6 +2,8 @@
 // Copyright (c) 2025 Ishan Pranav
 // Licensed under the MIT license.
 
+// Printing Department
+
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -11,10 +13,7 @@ int main(void)
 {
     char a[256][256];
 
-    if (!fgets(&a[1][1], sizeof * a - 1, stdin))
-    {
-        return 1;
-    }
+    if (!fgets(&a[1][1], sizeof * a - 1, stdin)) { return 1; }
     
     unsigned int n = 2;
     
@@ -24,9 +23,8 @@ int main(void)
 
     while (isspace(a[1][m - 1])) { m--; }
 
+    a[1][m] = '.';
     m++;
-
-    a[1][m - 1] = '.';
 
     memset(a[0], '.', m * sizeof ** a);
     
