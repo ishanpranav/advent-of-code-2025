@@ -8,7 +8,8 @@ CFLAGS = -fsanitize=undefined -gdwarf-4 -O3 -pedantic -std=c99 -Wall -Wextra
 all: \
 	day01a day01b
 	day02a
-	day03a
+	day03a day03b
+	day04a
 
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@.out
