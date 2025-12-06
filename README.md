@@ -102,7 +102,7 @@ for all (a_1, ..., a_n) in input:
     let first := a_1
     let second := a_2
 
-    for i in (2, ..., n - 1):
+    for all i in (2, ..., n - 1):
         if a_i > first then:
             first := a_i
             second := a_[i + 1]
@@ -133,7 +133,7 @@ for all (a_1, ..., a_n) in input:
 
     value := 0
 
-    while S is not empty: value := (value * 10) + [pop S]
+    until S is empty: value := (value * 10) + [pop S]
 
 return result
 ```
@@ -145,6 +145,17 @@ given (
     a_[1,1], ..., a_[1,m],
     ...,
     a_[n,1], ..., a_[n,m]
+)
+
+define neighbors(i, j) as return (
+    (i - 1, j - 1)
+    (i - 1, j),
+    (i - 1, j + 1),
+    (i, j - 1),
+    (i, j + 1),
+    (i + 1, j - 1),
+    (i + 1, j),
+    (i + 1, j + 1)
 )
 
 let B be an ((n + 2) × (m + 2)) boolean matrix
@@ -159,17 +170,6 @@ for all i in (1, ..., n):
 b_[n + 2,1], ..., b_[n + 2,m + 2] := false
 
 let result := 0
-
-define neighbors(i, j) as return (
-    (i - 1, j - 1)
-    (i - 1, j),
-    (i - 1, j + 1),
-    (i, j - 1),
-    (i, j + 1),
-    (i + 1, j - 1),
-    (i + 1, j),
-    (i + 1, j + 1)
-)
 ```
 
 ### Part A
@@ -200,12 +200,12 @@ for all i in (2, ..., n + 1):
 
         if d_[i,j] < 4 then enqueue (i, j) onto Q
 
-while Q is not empty:
+until Q is empty:
     let (i, j) := dequeue Q
 
     if not b_[i,j] then continue
 
-    b_[i,j] := 0
+    b_[i,j] := false
 
     for all (x, y) in neighbors(i, j) where b_[x,y]:
         decrement d_[x,y]
@@ -213,4 +213,32 @@ while Q is not empty:
         if d_[x,y] < 4 then enqueue (x, y) onto Q
 ```
 
-## Day 5: 
+## Day 5: Cafeteria
+
+```
+given (intervals, values)
+```
+
+### Part A
+
+```
+(a_1, ..., a_n) := sort (left, right) in intervals
+    by left, then by right descending
+
+let (currentLeft, currentRight) := a_1
+let L be a list
+
+for all i in (2, ..., n):
+    let (nextLeft, nextRight) := a_i
+
+    if nextLeft ≤ currentRight then:
+        currentRight := max(currentRight, nextRight)
+
+        continue
+    
+    append (currentLeft, currentRight) onto L
+
+    (currentLeft, currentRight) := (nextLeft, nextRight)
+
+append (currentLeft, currentRight) onto L
+```

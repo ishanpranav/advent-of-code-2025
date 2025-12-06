@@ -40,7 +40,7 @@ int main(void)
     unsigned long long left, right;
     unsigned long long result = 0;
 
-    while (scanf("%llu-%llu%*[,]", &left, &right) == 2)
+    while (scanf(" %llu-%llu%*[,]", &left, &right) == 2)
     {
         unsigned int maxK = log10(right) + 1;
         unsigned long long a = 10;
