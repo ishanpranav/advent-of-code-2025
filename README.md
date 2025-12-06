@@ -4,6 +4,8 @@ Efficient Advent of Code 2025 solutions in C language
 
 ## Day 1: Secret Entrance
 
+Time complexity: $O(n)$ (linear)
+
 ```
 given input
 
@@ -45,6 +47,8 @@ return result
 
 ## Day 2: Gift Shop
 
+Time complexity: $O(n)$ (linear)
+
 ```
 given input
 
@@ -54,7 +58,6 @@ let result := 0
 ### Part A
 
 ```
-
 for all (left, right) in input:
     let minK := ⌈(log_10(left) + 1) / 2⌉
     let maxK := ⌊(log_10(right) + 1) / 2⌋
@@ -89,6 +92,8 @@ return result
 ```
 
 ## Day 3: Lobby
+
+Time complexity: $O(m\times n)$ (linear)
 
 ```
 given input
@@ -139,6 +144,8 @@ return result
 ```
 
 ## Day 4: Printing Department
+
+Time complexity: $O(n\times m)$ (linear)
 
 ```
 given (
@@ -215,6 +222,8 @@ until Q is empty:
 
 ## Day 5: Cafeteria
 
+Time complexity: $O((n+m)\log{n})$ (log-linear)
+
 ```
 given (intervals, values)
 ```
@@ -222,23 +231,31 @@ given (intervals, values)
 ### Part A
 
 ```
-(a_1, ..., a_n) := sort (left, right) in intervals
-    by left, then by right descending
+(a_1, ..., a_n) := [
+    sort [left, right] in intervals ordering by left, then by right descending
+]
 
-let (currentLeft, currentRight) := a_1
+let [currentLeft, currentRight] := a_1
 let L be a list
 
 for all i in (2, ..., n):
-    let (nextLeft, nextRight) := a_i
+    let [nextLeft, nextRight] := a_i
 
     if nextLeft ≤ currentRight then:
         currentRight := max(currentRight, nextRight)
 
         continue
     
-    append (currentLeft, currentRight) onto L
+    append [currentLeft, currentRight] onto L
 
-    (currentLeft, currentRight) := (nextLeft, nextRight)
+    [currentLeft, currentRight] := (nextLeft, nextRight)
 
-append (currentLeft, currentRight) onto L
+append [currentLeft, currentRight] onto L
+
+let result := 0
+
+for all value in values:
+    if binary search value in intervals then increment result
+
+return result
 ```
