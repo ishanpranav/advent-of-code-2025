@@ -11,8 +11,8 @@
 
 typedef struct
 {
-    unsigned int count;
     char items[12];
+    unsigned int count;
 } Stack;
 
 int main(void)

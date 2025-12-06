@@ -14,7 +14,7 @@ let result := 0
 ### Part A
 
 ```
-foreach (direction, distance) in input:
+for all (direction, distance) in input:
     if direction = 'L' then negate distance
 
     dial := (dial + distance) mod 100
@@ -27,7 +27,7 @@ return result
 ### Part B
 
 ```
-foreach (direction, distance) in input:
+for all (direction, distance) in input:
     if direction = 'L' then negate distance
 
     let nextDial := dial + distance
@@ -55,11 +55,11 @@ let result := 0
 
 ```
 
-foreach (left, right) in input:
+for all (left, right) in input:
     let minK := ⌈(log_10(left) + 1) / 2⌉
     let maxK := ⌊(log_10(right) + 1) / 2⌋
 
-    foreach k in (minK, ..., maxK):
+    for all k in (minK, ..., maxK):
         let mask := 10^k + 1
         let minX := max(10^(k - 1), ⌈left / mask⌉)
         let maxX := min(10^k - 1, ⌊right / mask⌋)
@@ -72,13 +72,13 @@ return result
 ### Part B
 
 ```
-foreach (left, right) in input:
+for all (left, right) in input:
     let maxK := ⌊log_10(right)⌋ + 1
 
-    foreach k in (1, ..., maxK):
+    for all k in (1, ..., maxK):
         let maxR := maxK / k
 
-        foreach r in (2, ..., maxR):
+        for all r in (2, ..., maxR):
             let mask := (10^(k * r) - 1) / (10^k - 1)
             let minX := max(10^(k - 1), ⌈left / mask⌉)
             let maxX := min(10^k - 1, ⌊right / mask⌋)
@@ -98,7 +98,7 @@ let result := 0
 ### Part A
 
 ```
-foreach (a_1, ..., a_n) in input:
+for all (a_1, ..., a_n) in input:
     let first := a_1
     let second := a_2
 
@@ -120,10 +120,10 @@ return result
 ### Part B
 
 ```
-foreach (a_1, ..., a_n) in input:
+for all (a_1, ..., a_n) in input:
     let S be a stack
 
-    foreach ai in (a_1, ..., a_n):
+    for all ai in (a_1, ..., a_n):
         while S is not empty
             and [peek S] < ai
             and (n - i + count of S) > 12:
@@ -138,7 +138,7 @@ foreach (a_1, ..., a_n) in input:
 return result
 ```
 
-### Day 4: Printing Department
+## Day 4: Printing Department
 
 ```
 given (
@@ -146,40 +146,71 @@ given (
     ...,
     a_[n,1], ..., a_[n,m]
 )
+
+let B be an ((n + 2) × (m + 2)) boolean matrix
+
+b_[1,1], ..., b_[1,m + 2] := false
+
+for all i in (1, ..., n):
+    b_[i + 1,1] := false
+    b_[i + 1,2], ..., b_[i + 1,m + 1] := a_[i,1], ..., a_[i,m]
+    b_[i + 1,m + 2] := false
+
+b_[n + 2,1], ..., b_[n + 2,m + 2] := false
+
+let result := 0
+
+define neighbors(i, j) as return (
+    (i - 1, j - 1)
+    (i - 1, j),
+    (i - 1, j + 1),
+    (i, j - 1),
+    (i, j + 1),
+    (i + 1, j - 1),
+    (i + 1, j),
+    (i + 1, j + 1)
+)
 ```
 
 ### Part A
 
 ```
-let B be an ((n + 2) × (m + 2)) matrix
-
-b[1,1], ..., b_[1,m + 2] := 0
-
-foreach i in (1, ..., n):
-    b[i + 1,1] := 0
-    b[i + 1,2], ..., b[i + 1,m + 1] := a[i,1], ..., a[i,m]
-    b[i + 1,m + 2] := 0
-
-b[n + 2,1], ..., b_[n + 2,m+2] := 0
-
-let result := 0
-
-foreach i in (2, ..., n + 1):
-    foreach j in (2, ..., m + 1):
-        if not a[i,j] then continue
+for all i in (2, ..., n + 1):
+    for all j in (2, ..., m + 1):
+        if not b_[i,j] then continue
         
-        let statements := (
-            a[i - 1,j - 1],
-            a[i - 1,j],
-            a[i - 1,j + 1],
-            a[i,j - 1],
-            a[i,j + 1],
-            a[i + 1,j - 1],
-            a[i + 1,j]
-            a[i + 1,j + 1],
-        )
-        
-        if [count of statements s where s] < 4 then increment result
+        let d := count of (x, y) in neighbors(i, j) where b_[x,y]
+
+        if d < 4 then increment result
 
 return result
 ```
+
+### Part B
+
+```
+let Q be a queue
+let D be an ((n + 2) × (m + 2)) matrix
+
+for all i in (2, ..., n + 1):
+    for all j in (2, ..., m + 1):
+        if not b_[i,j] then continue
+
+        d_[i,j] := count of (x, y) in neighbors(i, j) where b_[x,y]
+
+        if d_[i,j] < 4 then enqueue (i, j) onto Q
+
+while Q is not empty:
+    let (i, j) := dequeue Q
+
+    if not b_[i,j] then continue
+
+    b_[i,j] := 0
+
+    for all (x, y) in neighbors(i, j) where b_[x,y]:
+        decrement d_[x,y]
+        
+        if d_[x,y] < 4 then enqueue (x, y) onto Q
+```
+
+## Day 5: 
