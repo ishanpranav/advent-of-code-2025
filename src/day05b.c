@@ -1,4 +1,4 @@
-// day05a.c
+// day05b.c
 // Copyright (c) 2025 Ishan Pranav and Iris Lim
 // Licensed under the MIT license.
 

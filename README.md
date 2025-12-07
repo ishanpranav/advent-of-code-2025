@@ -218,11 +218,17 @@ until Q is empty:
         decrement d_[x,y]
         
         if d_[x,y] < 4 then enqueue (x, y) onto Q
+    
+    increment result
+
+return result
 ```
 
 ## Day 5: Cafeteria
 
-Time complexity: $O((n+m)\log{n})$ (log-linear)
+Time complexity (Part A): $O((n+m)\log{n})$ (log-linear)
+
+Time complexity (Part B): $O(n\log{n})$ (log-linear)
 
 ```
 given (intervals, values)
