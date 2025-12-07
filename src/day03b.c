@@ -13,7 +13,8 @@ typedef struct
 {
     char items[12];
     unsigned int count;
-} Stack;
+}
+Stack;
 
 int main(void)
 {

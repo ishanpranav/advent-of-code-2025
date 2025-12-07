@@ -9,7 +9,8 @@ typedef struct
 {
     unsigned long long left;
     unsigned long long right;
-} Interval;
+} 
+Interval;
 
 static int interval_compare(const void* left, const void* right)
 {

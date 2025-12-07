@@ -14,14 +14,16 @@ typedef struct
 {
     unsigned int i;
     unsigned int j;
-} Coordinate;
+} 
+Coordinate;
 
 typedef struct
 {
     unsigned int first;
     unsigned int last;
     Coordinate items[256 * 256];
-} CoordinateQueue;
+} 
+CoordinateQueue;
 
 static void coordinate_queue(CoordinateQueue* instance)
 {

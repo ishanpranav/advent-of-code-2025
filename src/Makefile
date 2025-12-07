@@ -10,7 +10,8 @@ all: \
 	day02a
 	day03a day03b
 	day04a day04b
-	day05a
+	day05a day05b
+	day06a
 
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@.out

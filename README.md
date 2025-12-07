@@ -67,7 +67,7 @@ for all (left, right) in input:
         let minX := max(10^(k - 1), ⌈left / mask⌉)
         let maxX := min(10^k - 1, ⌊right / mask⌋)
 
-        result := result + [sum of x = minX to maxX over (x * mask)]
+        result := result + [sum from x = minX to maxX of (x * mask)]
 
 return result
 ```
@@ -86,7 +86,7 @@ for all (left, right) in input:
             let minX := max(10^(k - 1), ⌈left / mask⌉)
             let maxX := min(10^k - 1, ⌊right / mask⌋)
 
-            result := result + [sum of x = minX to maxX over (x * mask)]
+            result := result + [sum from x = minX to maxX of (x * mask)]
 
 return result
 ```
@@ -97,6 +97,7 @@ Time complexity: $O(m\times n)$ (linear)
 
 ```
 given input
+
 let result := 0
 ```
 
@@ -155,7 +156,7 @@ given (
 )
 
 define neighbors(i, j) as return (
-    (i - 1, j - 1)
+    (i - 1, j - 1),
     (i - 1, j),
     (i - 1, j + 1),
     (i, j - 1),
@@ -250,7 +251,7 @@ for all i in (2, ..., n):
     
     append [currentLeft, currentRight] onto L
 
-    [currentLeft, currentRight] := (nextLeft, nextRight)
+    [currentLeft, currentRight] := [nextLeft, nextRight]
 
 append [currentLeft, currentRight] onto L
 
@@ -269,8 +270,26 @@ return result
 ### Part B
 
 ```
-for all [left, right] in L
-    result := result + right - left + 1
+return sum [left, right] in L of (right - left + 1)
+```
 
-return result
+## Day 6: Trash Compactor
+
+### Part A
+
+```
+given (
+    (
+        a_[1,1], ..., a_[1,m],
+        ...,
+        a_[n,1], ..., a_[n,m]
+    ),
+    ( f_1, ..., f_m )
+)
+
+for all i in (2, ..., n):
+    for all j in (1, ..., m):
+        a_[1,j] := f_j(a_[1,j], a_[i,j])
+
+return sum from j = 1 to m of a_[1,j]
 ```
