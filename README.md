@@ -226,11 +226,7 @@ Time complexity: $O((n+m)\log{n})$ (log-linear)
 
 ```
 given (intervals, values)
-```
 
-### Part A
-
-```
 (a_1, ..., a_n) := [
     sort [left, right] in intervals ordering by left, then by right descending
 ]
@@ -253,9 +249,22 @@ for all i in (2, ..., n):
 append [currentLeft, currentRight] onto L
 
 let result := 0
+```
 
+### Part A
+
+```
 for all value in values:
-    if binary search value in intervals then increment result
+    if binary search value in L then increment result
+
+return result
+```
+
+### Part B
+
+```
+for all [left, right] in L
+    result := result + right - left + 1
 
 return result
 ```
